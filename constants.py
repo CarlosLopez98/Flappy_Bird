@@ -1,5 +1,5 @@
 # position rectangles constants for the sprites images
-SCALE = 2
+SCALE = 3
 SIZE = (168, 256)
 
 BACKGROUND_AREA = (0, 0, 144 * SCALE, 256 * SCALE)
@@ -13,6 +13,10 @@ RED_PIPE_UP = ()
 RED_PIPE_DOWN = ()
 
 # Flappy
-FLAPPY = [(), (), ()]
+FLAPPY = [
+    (3 * SCALE, 491 * SCALE, 17 * SCALE, 12 * SCALE),
+    (31 * SCALE, 491 * SCALE, 17 * SCALE, 12 * SCALE),
+    (59 * SCALE, 491 * SCALE, 17 * SCALE, 12 * SCALE)
+]
 BLUE_FLAPPY = [(), (), ()]
 RED_FLAPPY = [(), (), ()]
