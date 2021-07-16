@@ -1,14 +1,14 @@
 import pygame
 from pygame.locals import *
-from positions import *
+from constants import *
 
-WIDTH = 144 * 2
-HEIGHT = 257 * 2
+WIDTH = SIZE[0] * SCALE
+HEIGHT = SIZE[1] * SCALE
 
 image_width = 512
 image_height = 512
-sprites = pygame.image.load('res/sprites.png')
-sprites = pygame.transform.scale(sprites, (image_width * 2, image_height * 2))
+sprites = pygame.image.load('res/sprites_sheet.png')
+sprites = pygame.transform.scale(sprites, (image_width * SCALE, image_height * SCALE))
 
 
 def game():
@@ -28,6 +28,7 @@ def game():
         window.fill((0, 0, 0), (0, 0, WIDTH, HEIGHT))
         # rendering the background
         window.blit(sprites, (0, 0), BACKGROUND_AREA)
+        window.blit(sprites, (BACKGROUND_AREA[2], 0), BACKGROUND_AREA)
         render_floor(window)
 
         pygame.display.update()
