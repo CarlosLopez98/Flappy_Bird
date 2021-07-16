@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 from positions import *
 
-
 WIDTH = 144 * 2
 HEIGHT = 257 * 2
 
@@ -26,10 +25,31 @@ def game():
         for event in pygame.event.get():
             if event.type == QUIT:
                 running = False
-
-        window.blit(sprites, (0, 0), BACKGROUND)
+        window.fill((0, 0, 0), (0, 0, WIDTH, HEIGHT))
+        # rendering the background
+        window.blit(sprites, (0, 0), BACKGROUND_AREA)
+        render_floor(window)
 
         pygame.display.update()
+
+
+# we define a initial positions for render the floor images
+floor_pos = [0, HEIGHT - FLOOR_AREA[3]]
+floor_pos2 = [288, HEIGHT - FLOOR_AREA[3]]
+
+
+def render_floor(surface):
+    surface.blit(sprites, floor_pos, FLOOR_AREA)
+    surface.blit(sprites, floor_pos2, FLOOR_AREA)
+
+    if floor_pos[0] < -288:
+        floor_pos[0] = floor_pos2[0] + 288
+
+    if floor_pos2[0] < -288:
+        floor_pos2[0] = floor_pos[0] + 288
+
+    floor_pos[0] -= 1
+    floor_pos2[0] -= 1
 
 
 if __name__ == '__main__':
