@@ -1,16 +1,36 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import pygame
+from pygame.locals import *
+from positions import *
 
 
-# Press the green button in the gutter to run the script.
+WIDTH = 144 * 2
+HEIGHT = 257 * 2
+
+image_width = 512
+image_height = 512
+sprites = pygame.image.load('res/sprites.png')
+sprites = pygame.transform.scale(sprites, (image_width * 2, image_height * 2))
+
+
+def game():
+    pygame.init()
+
+    window = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Flappy Bird")
+
+    clock = pygame.time.Clock()
+    clock.tick(60)
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                running = False
+
+        window.blit(sprites, (0, 0), BACKGROUND)
+
+        pygame.display.update()
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    game()
