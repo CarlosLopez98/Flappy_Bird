@@ -2,6 +2,10 @@ import pygame
 from pygame.locals import *
 import time
 from constants import *
+from game import Game
+from models.world import World
+from models.floor import Floor
+from models.pipe import Pipe
 from models.bird import Bird
 
 WIDTH = SIZE[0] * SCALE
@@ -9,13 +13,11 @@ HEIGHT = SIZE[1] * SCALE
 
 frame_rate = 60
 
+# FIXIT
 image_width = 512
 image_height = 512
 sprites = pygame.image.load('res/sprites_sheet.png')
 sprites = pygame.transform.scale(sprites, (image_width * SCALE, image_height * SCALE))
-
-# instance of the bird
-flappy = Bird(None, sprites)
 
 
 def game():
@@ -24,18 +26,22 @@ def game():
     window = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Flappy Bird")
 
+    # clock
     clock = pygame.time.Clock()
+    frame = 0
 
     # Frame rate independence
     last_time = time.time()
 
-    # clock
-    frame = 0
+    # instances needed
+    # world
+    world = World()
+    flappy = Bird(sprites)
+
     running = True
     while running:
         delta_time = time.time() - last_time
         delta_time *= 60
-        print(delta_time)
         last_time = time.time()
 
         for event in pygame.event.get():
@@ -43,8 +49,7 @@ def game():
                 running = False
         window.fill((0, 0, 0), (0, 0, WIDTH, HEIGHT))
         # rendering the background
-        window.blit(sprites, (0, 0), BACKGROUND_AREA)
-        window.blit(sprites, (BACKGROUND_AREA[2], 0), BACKGROUND_AREA)
+        world.render(window)
         render_floor(window)
 
         # render the bird
@@ -81,4 +86,5 @@ def render_floor(surface):
 
 
 if __name__ == '__main__':
-    game()
+    game = Game()
+    game.run()

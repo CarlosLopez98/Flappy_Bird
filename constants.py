@@ -1,9 +1,19 @@
+from pygame.image import load
+from pygame.transform import scale
+
+
 # position rectangles constants for the sprites images
 SCALE = 3
 SIZE = (168, 256)
+WIDTH = SIZE[0] * SCALE
+HEIGHT = SIZE[1] * SCALE
 
-BACKGROUND_AREA = (0, 0, 144 * SCALE, 256 * SCALE)
-DARK_BACKGROUND_AREA = (146 * SCALE, 0, 256 * SCALE, 256 * SCALE)
+IMAGE_WIDTH = 512
+IMAGE_HEIGHT = 512
+SPRITES_SHEET = load('res/sprites_sheet.png')
+SPRITES_SHEET = scale(SPRITES_SHEET, (IMAGE_WIDTH * SCALE, IMAGE_HEIGHT * SCALE))
+
+# Floor
 FLOOR_AREA = (292 * SCALE, 0, 168 * SCALE, 56 * SCALE)
 
 # Pipes
