@@ -1,5 +1,7 @@
 import pygame.sprite
-from constants import SCALE, SPRITES_SHEET
+from settings import Settings
+
+settings = Settings.get_instance()
 
 
 class World(pygame.sprite.Group):
@@ -8,15 +10,15 @@ class World(pygame.sprite.Group):
     def __init__(self):
         super(World, self).__init__()
         self.backgrounds = {
-            'light': (0, 0, 144 * SCALE, 256 * SCALE),
-            'dark': (146 * SCALE, 0, 144 * SCALE, 256 * SCALE)
+            'light': (0, 0, 144 * settings.scale, 256 * settings.scale),
+            'dark': (146 * settings.scale, 0, 144 * settings.scale, 256 * settings.scale)
         }
         self.actual_background = 'light'
 
     def render(self, surface):
         # Rendering the background
-        surface.blit(SPRITES_SHEET, (0, 0), self.backgrounds[self.actual_background])
-        surface.blit(SPRITES_SHEET,
+        surface.blit(settings.sprites_sheet, (0, 0), self.backgrounds[self.actual_background])
+        surface.blit(settings.sprites_sheet,
                      (self.backgrounds[self.actual_background][2], 0), self.backgrounds[self.actual_background])
 
         # Rendering the other elements
