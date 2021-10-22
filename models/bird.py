@@ -32,14 +32,15 @@ class Bird(pygame.sprite.Sprite):
         self.speed = [0, 0]
         self.acc = [0, 1]
 
+        self.state = True
+
     def render(self, surface):
-        # TODO
         surface.blit(self.image, self.pos, self.sprites[self.color][self.actual_sprite])
+        # pygame.draw.rect(surface, (0, 0, 0), self.rect, 1)
 
     def update(self):
-        # TODO
         # animation
-        if settings.frame % 5 == 0:
+        if self.state and settings.frame % 5 == 0:
             if self.actual_sprite == 2:
                 self.actual_sprite = 0
             else:
@@ -47,11 +48,23 @@ class Bird(pygame.sprite.Sprite):
 
         # gravity
         self.pos = [self.pos[0] + self.speed[0], self.pos[1] + self.speed[1]]
+        self.rect.x = self.pos[0] + self.speed[0]
+        self.rect.y = self.pos[1] + self.speed[1]
         # acceleration
         self.speed = [self.speed[0] + self.acc[0], self.speed[1] + self.acc[1]]
 
-        print('speed:', self.speed)
-
     def jump(self):
-        # TODO
-        self.speed[1] = -10
+        if self.state:
+            self.speed[1] = -10
+
+    def check_collision(self, obj):
+        if hasattr(obj, 'rect'):
+            if self.rect.colliderect(obj.rect):
+                # stamp with the floor
+                self.speed[1] = 0
+                self.acc[1] = 0
+                self.state = False
+                # move throw the -x axis
+                self.speed[0] = -settings.scale
+        else:
+            print('Can\'t check the collision :(')

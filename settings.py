@@ -16,6 +16,10 @@ class Settings:
         self.image_height = self.sprites_sheet.get_height()
         self.sprites_sheet = scale(self.sprites_sheet, (self.image_width * self.scale, self.image_height * self.scale))
 
+        # range to create the pipes
+        self.hit_box_size = 0
+        self.pipes_range = []
+
         # Frame independence
         self.frame_rate = 60
         self.delta_time = 0
